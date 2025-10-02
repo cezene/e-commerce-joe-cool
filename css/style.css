@@ -18,6 +18,7 @@ body {
     background: var(--light);
     overflow-x: hidden;
 }
+
 h1,
 h2,
 h3,
@@ -171,6 +172,22 @@ nav a:hover::before {
     border-radius: 1px;
 }
 
+.mobile-menu-btn {
+    position: relative;
+}
+
+.mobile-menu-btn span:nth-child(1),
+.mobile-menu-btn span:nth-child(2),
+.mobile-menu-btn span:nth-child(3) {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--dark);
+    margin: 5px 0;
+    transition: 0.3s;
+    border-radius: 1px;
+}
+
 /* Mobile Menu Animation */
 .mobile-menu-btn.active span:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
@@ -277,15 +294,6 @@ nav a:hover::before {
 
 
 /* Responsive */
-@media (max-width: 1024px) {
-    .products-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .footer-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
 @media (max-width: 768px) {
     .header-container {
@@ -333,5 +341,350 @@ nav a:hover::before {
 
     .mobile-nav a:hover {
         padding-left: 25px;
+    }
+}
+
+/* Hero Carousel Styles */
+.hero-carousel {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: var(--red);
+}
+
+.carousel-cell {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.carousel-cell img {
+    width: auto;
+    height: 90%;
+    max-width: 100%;
+    object-fit: contain;
+    /* transition: all 60s cubic-bezier(0.3, 0.8, 0.3, 2.3); voltar */
+    /* filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3)); voltar */
+    z-index: 3;
+    position: relative;
+}
+
+.carousel-cell.is-selected img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4)) brightness(1.1);
+}
+
+/* voltar aqui */
+.carousel-overlay {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    z-index: 4;
+    color: var(--light);
+    max-width: 500px;
+    opacity: 0;
+    transform: translateY(-50%) translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-cell.is-selected .carousel-overlay {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+.carousel-overlay h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--light);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-overlay p {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.btn-primary {
+    background: transparent;
+    color: var(--light);
+    border: 2px solid var(--light);
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover {
+    color: var(--dark);
+    border-color: var(--yellow);
+}
+
+.btn-primary:hover::before {
+    transform: scaleX(1);
+}
+
+/* Person Animation Effects */
+/* .person-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 60s ease;
+} */
+
+/* Flickity Custom Styles */
+.flickity-page-dots {
+    bottom: 30px !important;
+    z-index: 5 !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+.flickity-page-dots .dot {
+    width: 12px !important;
+    height: 12px !important;
+    background: rgba(255, 223, 0, 0.4) !important;
+    border: 2px solid var(--yellow) !important;
+    margin: 0 8px !important;
+    transition: all 0.3s ease !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    display: inline-block !important;
+}
+
+.flickity-page-dots .dot.is-selected {
+    background: var(--yellow) !important;
+    transform: scale(1.3) !important;
+    box-shadow: 0 0 15px rgba(255, 223, 0, 0.6) !important;
+}
+
+.flickity-prev-next-button {
+    background: rgba(255, 223, 0, 0.2) !important;
+    border: 2px solid var(--yellow) !important;
+    color: var(--yellow) !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 0 !important;
+    transition: all 0.3s ease;
+}
+
+.flickity-prev-next-button:hover {
+    background: var(--yellow) !important;
+    color: var(--dark) !important;
+}
+
+.flickity-prev-next-button svg {
+    fill: var(--yellow) !important;
+}
+
+.flickity-prev-next-button:hover svg {
+    fill: var(--dark) !important;
+}
+
+
+.flickity-prev-next-button.previous {
+    left: 30px;
+}
+
+.flickity-prev-next-button.next {
+    right: 30px;
+}
+
+@media (max-width: 768px) {}
+
+/* Responsive Design for Carousel */
+@media (max-width: 1024px) {
+    .carousel-overlay h2 {
+        font-size: 3rem;
+    }
+
+    .carousel-overlay {
+        left: 5%;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-carousel {
+        height: 100vh;
+    }
+
+    .carousel-cell {
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .carousel-cell:nth-child(1),
+    .carousel-cell:nth-child(2),
+    .carousel-cell:nth-child(3) {
+        display: flex !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        flex-direction: column-reverse !important;
+    }
+
+    .carousel-cell img {
+        height: 55%;
+        object-fit: contain;
+        object-position: bottom center;
+        margin: 0 auto;
+        display: block;
+        max-width: 100%;
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .carousel-overlay {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        text-align: center;
+        max-width: 90%;
+        width: 100%;
+        box-sizing: border-box;
+        opacity: 1;
+        margin-top: 0 !important;
+        flex-shrink: 0;
+    }
+
+
+    .flickity-page-dots {
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        bottom: 20px !important;
+        z-index: 10 !important;
+    }
+
+    .carousel-overlay h2 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-align: center;
+        margin-top: 5px !important;
+    }
+
+    .carousel-overlay p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        padding: 12px 25px;
+        font-size: 14px;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        width: fit-content;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-cell {
+        padding: 0;
+        flex-direction: column-reverse;
+    }
+
+    .carousel-cell img {
+        height: 50%;
+        object-fit: contain;
+        object-position: bottom center;
+        margin: 0 auto;
+        display: block;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .carousel-overlay {
+        position: relative;
+        padding: 15px;
+        max-width: 95%;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 120px;
+        opacity: 1;
+    }
+
+
+    .carousel-overlay h2 {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .carousel-overlay p {
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        padding: 12px 24px;
+        font-size: 13px;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        width: fit-content;
+    }
+
+    .flickity-prev-next-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    .flickity-prev-next-button.previous {
+        left: 15px;
+    }
+
+    .flickity-prev-next-button.next {
+        right: 15px;
+    }
+
+    .flickity-page-dots {
+        bottom: 15px !important;
     }
 }
