@@ -292,58 +292,6 @@ nav a:hover::before {
     padding-left: 30px;
 }
 
-
-/* Responsive */
-
-@media (max-width: 768px) {
-    .header-container {
-        padding: 15px 20px;
-    }
-
-    nav {
-        display: none;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .logo {
-        font-size: 22px;
-    }
-
-    .mobile-menu {
-        width: 280px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header-container {
-        padding: 12px 15px;
-    }
-
-    .logo {
-        font-size: 20px;
-    }
-
-    .mobile-menu {
-        width: 100%;
-    }
-
-    .mobile-menu-header {
-        padding: 15px;
-    }
-
-    .mobile-nav a {
-        font-size: 14px;
-        padding: 12px 15px;
-    }
-
-    .mobile-nav a:hover {
-        padding-left: 25px;
-    }
-}
-
 /* Hero Carousel Styles */
 .hero-carousel {
     width: 100%;
@@ -369,8 +317,6 @@ nav a:hover::before {
     height: 90%;
     max-width: 100%;
     object-fit: contain;
-    /* transition: all 60s cubic-bezier(0.3, 0.8, 0.3, 2.3); voltar */
-    /* filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3)); voltar */
     z-index: 3;
     position: relative;
 }
@@ -380,7 +326,7 @@ nav a:hover::before {
     filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.4)) brightness(1.1);
 }
 
-/* voltar aqui */
+
 .carousel-overlay {
     position: absolute;
     top: 50%;
@@ -455,18 +401,6 @@ nav a:hover::before {
     transform: scaleX(1);
 }
 
-/* Person Animation Effects */
-/* .person-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 60s ease;
-} */
 
 /* Flickity Custom Styles */
 .flickity-page-dots {
@@ -526,9 +460,7 @@ nav a:hover::before {
     right: 30px;
 }
 
-@media (max-width: 768px) {}
-
-/* Responsive Design for Carousel */
+/* Responsive */
 @media (max-width: 1024px) {
     .carousel-overlay h2 {
         font-size: 3rem;
@@ -541,6 +473,26 @@ nav a:hover::before {
 }
 
 @media (max-width: 768px) {
+    .header-container {
+        padding: 15px 20px;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .mobile-menu {
+        width: 280px;
+    }
+
     .hero-carousel {
         height: 100vh;
     }
@@ -621,6 +573,31 @@ nav a:hover::before {
 }
 
 @media (max-width: 480px) {
+    .header-container {
+        padding: 12px 15px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .mobile-menu {
+        width: 100%;
+    }
+
+    .mobile-menu-header {
+        padding: 15px;
+    }
+
+    .mobile-nav a {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+
+    .mobile-nav a:hover {
+        padding-left: 25px;
+    }
+
     .carousel-cell {
         padding: 0;
         flex-direction: column-reverse;
