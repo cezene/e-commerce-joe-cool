@@ -149,3 +149,50 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+document.addEventListener('DOMContentLoaded', function () {
+
+    const lazyImages = document.querySelectorAll('.lazy-load');
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const dataSrc = img.getAttribute('data-src');
+
+                if (dataSrc) {
+                    const tempImg = new Image();
+                    tempImg.src = dataSrc;
+
+                    tempImg.onload = () => {
+                        img.src = dataSrc;
+                        img.classList.add('lazy-loaded');
+                        img.classList.remove('lazy-load');
+                    };
+                }
+
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px'
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+
+    const animatedElements = document.querySelectorAll('[data-animate], .collection-header-text, .collection-image, .collection-text');
+
+    const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, {
+        threshold: 0.2, // Anima quando 20% do elemento está visível
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    animatedElements.forEach(element => {
+        animationObserver.observe(element);
+    });
+});
