@@ -321,3 +321,91 @@ document.addEventListener('DOMContentLoaded', function () {
         bannerObserver.observe(bannerImg);
     }
 });
+
+//  Split Banners
+document.addEventListener('DOMContentLoaded', function () {
+
+    const splitBannerImages = document.querySelectorAll('.lazy-load-split');
+    const splitBanners = document.querySelectorAll('.split-banner');
+
+    const splitImageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const dataSrc = img.getAttribute('data-src');
+
+                if (dataSrc) {
+                    const tempImg = new Image();
+                    tempImg.src = dataSrc;
+
+                    tempImg.onload = () => {
+                        setTimeout(() => {
+                            img.src = dataSrc;
+                            img.classList.add('lazy-loaded');
+                            img.classList.remove('lazy-load-split');
+                        }, 100);
+                    };
+
+                    tempImg.onerror = () => {
+                        console.error('Erro ao carregar imagem do split banner:', dataSrc);
+                    };
+                }
+
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '100px',
+        threshold: 0.1
+    });
+
+    splitBannerImages.forEach(img => splitImageObserver.observe(img));
+
+
+
+    const splitBannerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    splitBanners.forEach(banner => splitBannerObserver.observe(banner));
+
+
+
+    let ticking = false;
+
+    function updateParallax() {
+        const splitBannersWrapper = document.querySelector('.split-banners-wrapper');
+
+        if (splitBannersWrapper) {
+            const rect = splitBannersWrapper.getBoundingClientRect();
+            const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+
+            if (scrollPercent >= 0 && scrollPercent <= 1) {
+                splitBanners.forEach((banner, index) => {
+                    const img = banner.querySelector('.split-banner-img');
+                    if (img && img.classList.contains('lazy-loaded')) {
+                        const speed = index % 2 === 0 ? 0.05 : -0.05;
+                        const yPos = scrollPercent * 100 * speed;
+                        img.style.transform = `translateY(${yPos}px)`;
+                    }
+                });
+            }
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    });
+});

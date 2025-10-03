@@ -316,6 +316,7 @@ nav a:hover::before {
     object-fit: contain;
     z-index: 3;
     position: relative;
+    margin-bottom: -40px !important;
 }
 
 .carousel-cell.is-selected img {
@@ -898,6 +899,213 @@ nav a:hover::before {
     transition-delay: 0.6s;
 }
 
+/* Split Banners Section */
+.split-banners-wrapper {
+    background: var(--maroon);
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.split-banners-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(234, 31, 24, 0.05) 0%, transparent 70%);
+    animation: pulse-bg 10s ease-in-out infinite;
+}
+
+@keyframes pulse-bg {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.split-banners {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.split-banner {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(10, 12, 9, 0.15);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.split-banner.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.split-banner:nth-child(1).animate {
+    transition-delay: 0.2s;
+}
+
+.split-banner:nth-child(2).animate {
+    transition-delay: 0.4s;
+}
+
+.split-banner:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(10, 12, 9, 0.25);
+}
+
+.split-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+    filter: grayscale(0.3) brightness(0.9);
+}
+
+.split-banner-img.lazy-load-split {
+    filter: blur(10px) grayscale(1);
+}
+
+.split-banner-img.lazy-loaded {
+    filter: grayscale(0.3) brightness(0.9);
+}
+
+.split-banner:hover .split-banner-img {
+    transform: scale(1.15) rotate(2deg);
+    filter: grayscale(0) brightness(1);
+}
+
+.split-banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(10, 12, 9, 0.95) 0%, rgba(10, 12, 9, 0.7) 40%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 40px;
+    transition: background 0.5s ease;
+}
+
+.split-banner:hover .split-banner-overlay {
+    background: linear-gradient(to top, rgba(234, 31, 24, 0.95) 0%, rgba(234, 31, 24, 0.7) 40%, transparent 100%);
+}
+
+.split-banner-content {
+    color: var(--light);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.split-banner.animate .split-banner-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.split-banner:nth-child(1) .split-banner-content {
+    transition-delay: 0.5s;
+}
+
+.split-banner:nth-child(2) .split-banner-content {
+    transition-delay: 0.7s;
+}
+
+.split-banner-content h3 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.split-banner-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--yellow);
+    transition: width 0.5s ease;
+}
+
+.split-banner:hover .split-banner-content h3::after {
+    width: 100%;
+}
+
+.split-banner-content p {
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.btn-link {
+    color: var(--yellow);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.btn-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--yellow);
+    transition: width 0.4s ease;
+}
+
+.btn-link:hover::before {
+    width: calc(100% - 30px);
+}
+
+.btn-link .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.btn-link:hover .arrow {
+    transform: translateX(10px);
+}
+
+.split-banner:hover .btn-link {
+    color: var(--light);
+}
+
+.split-banner:hover .btn-link::before {
+    background: var(--light);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .carousel-overlay h2 {
@@ -929,6 +1137,14 @@ nav a:hover::before {
 
     .banner-text {
         font-size: 16px;
+    }
+
+    .split-banner {
+        height: 450px;
+    }
+
+    .split-banner-content h3 {
+        font-size: 30px;
     }
 }
 
@@ -1098,6 +1314,37 @@ nav a:hover::before {
         padding: 12px 30px;
         font-size: 13px;
     }
+
+    .split-banners-wrapper {
+        padding: 50px 20px;
+    }
+
+    .split-banners {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .split-banner {
+        height: 400px;
+    }
+
+    .split-banner-overlay {
+        padding: 30px;
+    }
+
+    .split-banner-content h3 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .split-banner-content p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .btn-link {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1227,6 +1474,26 @@ nav a:hover::before {
     }
 
     .banner-text {
+        font-size: 13px;
+    }
+
+    .split-banners-wrapper {
+        padding: 40px 15px;
+    }
+
+    .split-banner {
+        height: 350px;
+    }
+
+    .split-banner-overlay {
+        padding: 25px;
+    }
+
+    .split-banner-content h3 {
+        font-size: 24px;
+    }
+
+    .split-banner-content p {
         font-size: 13px;
     }
 }
