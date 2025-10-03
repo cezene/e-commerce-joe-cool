@@ -1,6 +1,6 @@
 🕶️ Joe Cool Store
 
-Este repositório contém o desenvolvimento de uma loja online fictícia da marca Joe Cool, inspirada no alter ego estiloso do Snoopy.
+Este repositório contém o desenvolvimento de uma loja online fictícia da marca Joe Cool, inspirada no alter ego do Snoopy.
 
 O projeto foi construído utilizando HTML, CSS e JavaScript puro, com foco em:
 
@@ -11,5 +11,3 @@ O projeto foi construído utilizando HTML, CSS e JavaScript puro, com foco em:
 ⚡ Interatividade no front-end sem o uso de frameworks pesados.
 
 🎠 Uso da biblioteca Flickity para criação de carrosséis modernos e fluidos.
-
-O objetivo principal deste projeto foi exercitar boas práticas de estruturação, estilização e manipulação de elementos no front-end.
