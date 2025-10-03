@@ -28,6 +28,39 @@ h6 {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Scroll to top button */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--red);
+    color: var(--light);
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(234, 31, 24, 0.3);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top:hover {
+    background: var(--yellow);
+    color: var(--dark);
+    transform: translateY(-5px);
+}
+
 /* Header */
 header {
     background: var(--light);
@@ -1106,6 +1139,58 @@ nav a:hover::before {
     background: var(--light);
 }
 
+/* Footer */
+footer {
+    background: var(--dark);
+    color: var(--light);
+    padding: 60px 40px 30px;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-column h4 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: var(--yellow);
+    font-weight: 600;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: var(--yellow);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(254, 254, 254, 0.1);
+    padding-top: 30px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(254, 254, 254, 0.6);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .carousel-overlay h2 {
@@ -1146,7 +1231,12 @@ nav a:hover::before {
     .split-banner-content h3 {
         font-size: 30px;
     }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+
 
 @media (max-width: 768px) {
     .header-container {
@@ -1344,6 +1434,11 @@ nav a:hover::before {
 
     .btn-link {
         font-size: 13px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 }
 
