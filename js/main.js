@@ -1,4 +1,3 @@
-// Utility Functions
 const DOMUtils = {
     getElement: (selector) => document.querySelector(selector),
     getElements: (selector) => document.querySelectorAll(selector),
@@ -7,14 +6,13 @@ const DOMUtils = {
     toggleClass: (element, className) => element?.classList.toggle(className)
 };
 
-// Lazy Loading Observer
-function createLazyLoadObserver(selector, className = 'lazy-loaded', options = {}) {
+function createLazyLoadObserver(selector, className = 'lazy-loaded') {
     const defaultOptions = {
         rootMargin: '100px',
         threshold: 0.1
     };
 
-    const observerOptions = { ...defaultOptions, ...options };
+    const observerOptions = { ...defaultOptions };
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -54,14 +52,13 @@ function createLazyLoadObserver(selector, className = 'lazy-loaded', options = {
     DOMUtils.getElements(selector).forEach(img => observer.observe(img));
 }
 
-// Animation Observer
-function createAnimationObserver(selector, options = {}) {
+function createAnimationObserver(selector) {
     const defaultOptions = {
         threshold: 0.2,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observerOptions = { ...defaultOptions, ...options };
+    const observerOptions = { ...defaultOptions };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -74,7 +71,6 @@ function createAnimationObserver(selector, options = {}) {
     DOMUtils.getElements(selector).forEach(element => observer.observe(element));
 }
 
-// Mobile Menu
 function initMobileMenu() {
     const menuBtn = DOMUtils.getElement('#mobile-menu-btn');
     const menuOverlay = DOMUtils.getElement('#mobile-menu-overlay');
@@ -110,7 +106,6 @@ function initMobileMenu() {
     });
 }
 
-// Header Scroll Effect
 function initHeaderScroll() {
     const header = DOMUtils.getElement('#header');
     if (!header) return;
@@ -120,7 +115,6 @@ function initHeaderScroll() {
     });
 }
 
-// Flickity Carousel
 function initCarousel() {
     const carousel = DOMUtils.getElement('.hero-carousel');
     if (!carousel) return;
@@ -173,7 +167,6 @@ function initCarousel() {
     setupSlide(0);
 }
 
-// Product Cards Animation
 function initProductCards() {
     const productCards = DOMUtils.getElements('.product-card');
 
@@ -199,7 +192,6 @@ function initProductCards() {
     });
 }
 
-// Banner Content Animation
 function initBannerAnimation() {
     const bannerImg = DOMUtils.getElement('.lazy-load-banner');
     const bannerContent = DOMUtils.getElement('.banner-content');
@@ -243,7 +235,6 @@ function initBannerAnimation() {
     observer.observe(bannerImg);
 }
 
-// Split Banners Parallax
 function initSplitBannersParallax() {
     const splitBannersWrapper = DOMUtils.getElement('.split-banners-wrapper');
     const splitBanners = DOMUtils.getElements('.split-banner');
@@ -278,7 +269,6 @@ function initSplitBannersParallax() {
     });
 }
 
-// Scroll to Top Button
 function initScrollToTop() {
     const scrollTopBtn = DOMUtils.getElement('#scrollTop');
     if (!scrollTopBtn) return;
@@ -292,7 +282,6 @@ function initScrollToTop() {
     });
 }
 
-// Initialize All
 document.addEventListener('DOMContentLoaded', () => {
 
     initMobileMenu();
