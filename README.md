@@ -11,3 +11,5 @@ O projeto foi construído utilizando HTML, CSS e JavaScript puro, com foco em:
 ⚡ Interatividade no front-end sem o uso de frameworks pesados.
 
 🎠 Uso da biblioteca Flickity para criação de carrosséis modernos e fluidos.
+
+🔗 Link: [Joe Cool Store](https://cezene.github.io/e-commerce-joe-cool/)
