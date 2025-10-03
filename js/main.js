@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         animation.style.opacity = '1';
                     }
 
-                    // Animações de entrada do texto
                     const h2 = overlay.querySelector('h2');
                     const p = overlay.querySelector('p');
                     const btn = overlay.querySelector('.btn-primary');
@@ -196,45 +195,39 @@ document.addEventListener('DOMContentLoaded', function () {
         animationObserver.observe(element);
     });
 });
-// Lazy Loading para Produtos
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     const lazyProductImages = document.querySelectorAll('.lazy-load-product');
-    
-    // Contador para saber quando ambas as imagens de um produto carregaram
+
     const loadedImages = new Map();
-    
+
     const productImageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 const dataSrc = img.getAttribute('data-src');
                 const productImage = img.closest('.product-image');
-                
+
                 if (dataSrc) {
-                    // Adiciona classe loading ao container
                     if (productImage) {
                         productImage.classList.add('loading');
                     }
-                    
-                    // Criar uma nova imagem para pré-carregar
+
                     const tempImg = new Image();
                     tempImg.src = dataSrc;
-                    
+
                     tempImg.onload = () => {
-                        // Pequeno delay para suavizar a transição
                         setTimeout(() => {
                             img.src = dataSrc;
                             img.classList.add('lazy-loaded');
                             img.classList.remove('lazy-load-product');
-                            
-                            // Remove loading do container quando terminar
+
                             if (productImage) {
                                 productImage.classList.remove('loading');
                             }
                         }, 100);
                     };
-                    
+
                     tempImg.onerror = () => {
                         console.error('Erro ao carregar imagem:', dataSrc);
                         if (productImage) {
@@ -242,22 +235,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     };
                 }
-                
+
                 observer.unobserve(img);
             }
         });
     }, {
-        rootMargin: '100px', // Começa a carregar 100px antes
+        rootMargin: '100px',
         threshold: 0.01
     });
-    
+
     lazyProductImages.forEach(img => {
         productImageObserver.observe(img);
     });
-    
-    
+
+
     const productCards = document.querySelectorAll('.product-card');
-    
+
     const cardAnimationObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
@@ -271,12 +264,60 @@ document.addEventListener('DOMContentLoaded', function () {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     productCards.forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        
+
         cardAnimationObserver.observe(card);
     });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const bannerImg = document.querySelector('.lazy-load-banner');
+    const bannerContent = document.querySelector('.banner-content');
+
+    if (bannerImg) {
+        const bannerObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const dataSrc = img.getAttribute('data-src');
+
+                    if (dataSrc) {
+                        const tempImg = new Image();
+                        tempImg.src = dataSrc;
+
+                        tempImg.onload = () => {
+                            img.src = dataSrc;
+                            img.classList.add('lazy-loaded');
+                            img.classList.remove('lazy-load-banner');
+
+                            setTimeout(() => {
+                                if (bannerContent) {
+                                    bannerContent.classList.add('animate');
+                                }
+                            }, 300);
+                        };
+
+                        tempImg.onerror = () => {
+                            console.error('Erro ao carregar banner:', dataSrc);
+                            if (bannerContent) {
+                                bannerContent.classList.add('animate');
+                            }
+                        };
+                    }
+
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '100px',
+            threshold: 0.1
+        });
+
+        bannerObserver.observe(bannerImg);
+    }
 });
