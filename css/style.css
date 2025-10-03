@@ -1191,6 +1191,30 @@ footer {
     color: rgba(254, 254, 254, 0.6);
 }
 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.carousel-cell.is-selected .carousel-overlay h2 {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.carousel-cell.is-selected .carousel-overlay p {
+    animation: slideInLeft 0.8s ease-out 0.2s both;
+}
+
+.carousel-cell.is-selected .carousel-overlay .btn-primary {
+    animation: slideInLeft 0.8s ease-out 0.4s both;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .carousel-overlay h2 {
