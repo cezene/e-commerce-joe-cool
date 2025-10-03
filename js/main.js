@@ -188,11 +188,95 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }, {
-        threshold: 0.2, // Anima quando 20% do elemento está visível
+        threshold: 0.2,
         rootMargin: '0px 0px -50px 0px'
     });
 
     animatedElements.forEach(element => {
         animationObserver.observe(element);
+    });
+});
+// Lazy Loading para Produtos
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const lazyProductImages = document.querySelectorAll('.lazy-load-product');
+    
+    // Contador para saber quando ambas as imagens de um produto carregaram
+    const loadedImages = new Map();
+    
+    const productImageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const dataSrc = img.getAttribute('data-src');
+                const productImage = img.closest('.product-image');
+                
+                if (dataSrc) {
+                    // Adiciona classe loading ao container
+                    if (productImage) {
+                        productImage.classList.add('loading');
+                    }
+                    
+                    // Criar uma nova imagem para pré-carregar
+                    const tempImg = new Image();
+                    tempImg.src = dataSrc;
+                    
+                    tempImg.onload = () => {
+                        // Pequeno delay para suavizar a transição
+                        setTimeout(() => {
+                            img.src = dataSrc;
+                            img.classList.add('lazy-loaded');
+                            img.classList.remove('lazy-load-product');
+                            
+                            // Remove loading do container quando terminar
+                            if (productImage) {
+                                productImage.classList.remove('loading');
+                            }
+                        }, 100);
+                    };
+                    
+                    tempImg.onerror = () => {
+                        console.error('Erro ao carregar imagem:', dataSrc);
+                        if (productImage) {
+                            productImage.classList.remove('loading');
+                        }
+                    };
+                }
+                
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '100px', // Começa a carregar 100px antes
+        threshold: 0.01
+    });
+    
+    lazyProductImages.forEach(img => {
+        productImageObserver.observe(img);
+    });
+    
+    
+    const productCards = document.querySelectorAll('.product-card');
+    
+    const cardAnimationObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    productCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        cardAnimationObserver.observe(card);
     });
 });
